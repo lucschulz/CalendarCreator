@@ -23,12 +23,25 @@ Private Sub BtnGenerateCalendar_Click()
     currentYear = CInt(tbYear.Text)
     currentMonth = cbListOfMonths.ListIndex + 1
     
-    Call modMain.OutputDaysOfTheWeek(currentYear, currentMonth)
+    Dim cs As New ConfigureSheet
+    Dim cc As New CreateCalendar
     
+    If checkUseNewWorkbook.Value = True Then
+        Call cs.CreateNewWorkbook
+        Call cc.NewCalendar(currentYear, currentMonth, 2, 2)
+    Else
+        Call cs.CreateNewSheet
+        Call cc.NewCalendar(currentYear, currentMonth, 2, 2)
+    End If
+        
 End Sub
 
-Private Sub frameAdvancedOptions_Click()
-
+Private Sub checkEntireYear_Click()
+    If checkEntireYear.Value = True Then
+        cbListOfMonths.Enabled = False
+    ElseIf checkEntireYear.Value = False Then
+        cbListOfMonths.Enabled = True
+    End If
 End Sub
 
 Private Sub UserForm_Initialize()

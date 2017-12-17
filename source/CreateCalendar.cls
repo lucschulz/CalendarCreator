@@ -1,9 +1,17 @@
-Attribute VB_Name = "modMain"
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "CreateCalendar"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
 Option Explicit
 
-Sub OutputDaysOfTheWeek(currentYear As Integer, currentMonth As Integer)
-    
-    ClearArea
+Dim cs As New ConfigureSheet
+
+Sub NewCalendar(currentYear As Integer, currentMonth As Integer, startRow As Long, startCol As Long)
     
     Dim rngCalendarWhole As Range
     Dim rngCalendarHeaders As Range
@@ -17,12 +25,6 @@ Sub OutputDaysOfTheWeek(currentYear As Integer, currentMonth As Integer)
     startDayOrdinal = GetOrdinalOfFirstDayOfMonth(currentYear, currentMonth)
     numberOfDays = HowManyDaysInMonth(DateSerial(currentYear, currentMonth, 1))
     
-    Dim startRow As Long
-    Dim startCol As Long
-    
-    startRow = 2
-    startCol = 2
-
     Dim rng As Range
     Set rng = Range(Cells(startRow, startCol), Cells(startRow, startCol + 6))
     
@@ -40,13 +42,6 @@ Sub OutputDaysOfTheWeek(currentYear As Integer, currentMonth As Integer)
     Call formatCal.PopulateDays(currentYear, currentMonth, rngCalendarBody)
     Call formatCal.SetTitle(startRow, startCol, currentMonth, currentYear)
 
-End Sub
-
-Private Sub ClearArea()
-    Dim rngClearAll As Range
-    Set rngClearAll = Range(Cells(1, 1), Cells(10, 10))
-    
-    rngClearAll.Clear
 End Sub
 
 Private Function HowManyDaysInMonth(Optional theDateToMonthify As Date = 0) As Integer
