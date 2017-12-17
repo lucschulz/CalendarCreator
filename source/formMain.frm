@@ -15,7 +15,16 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Sub BtnCredits_Click()
+    formCredits.Show
+End Sub
+
 Private Sub BtnGenerateCalendar_Click()
+    
+    If cbListOfMonths.ListIndex = -1 Then
+        MsgBox "You must select a month in order to proceed."
+        Exit Sub
+    End If
     
     Dim currentYear As Integer
     Dim currentMonth As Integer
@@ -37,6 +46,10 @@ Private Sub BtnGenerateCalendar_Click()
 End Sub
 
 Private Sub checkEntireYear_Click()
+    
+    MsgBox "Option not yet available."
+    Exit Sub
+        
     If checkEntireYear.Value = True Then
         cbListOfMonths.Enabled = False
     ElseIf checkEntireYear.Value = False Then
